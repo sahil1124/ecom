@@ -1,0 +1,33 @@
+{% extends 'shop/basic.html'%}
+{% load bootstrap3 %}
+{% block body %}
+
+
+{% if messages%}
+{% for message in messages%}
+  <div class="alert alert-warning alert-dismissible my-3" role="alert">
+    <button class="close" data-dismiss="alert">
+    <small><sup>x</sup></small>
+    </button>
+    {{message}}
+  </div>
+  {% endfor%}
+  {% endif%}
+
+<div class="alert alert-dark my-4" role="alert">
+  <h4 class="alert-heading my-3">Your profile is!</h4>
+  <div class="contemt-section">
+    <div class="media">
+      <img src="{{user.profile.image.url}}" alt="" class="rounded-circle  account-img" width="90px" height="90px;">
+      <div class="media-body mx-4">
+        <h2 class="account-heading">{{user.username}}</h2>
+        <p class="text-secondary">{{user.email}}</p>
+      </div>
+    </div>
+
+  </div>
+  <a href="{% url 'update_profile' %}"><button type="button" name="button" class="btn btn-primary my-3">Update Profile</button></a>
+
+</div>
+
+{% endblock %}

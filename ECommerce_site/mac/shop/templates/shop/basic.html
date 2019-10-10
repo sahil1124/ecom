@@ -1,0 +1,103 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/shop/my.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300" type="text/css" />
+    <title>{% block title%}  {% endblock %}</title>
+      <style>
+        {% block css %} {% endblock %}
+  </style>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3"></script>
+  </head>
+  <body>
+
+    {% if user.is_authenticated %}
+    <h2>Welcome! <a href="{% url 'profile' %}">@{{user.username}}</a></h2>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+  <a class="navbar-brand" href="/">My Awesome Cart </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'ShopHome'%}">Home <i class="fa fa-home" aria-hidden="true"></i><span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'AboutUs' %}">About Us</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'TrackingStatus' %}">Tracker</a>
+      </li>
+      <!-- <li class="nav-item active">
+        <a class="nav-link" href='/blog/'>Blog</a>
+
+      </li> -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'ContactUs'%}">Contact Us <i class="fa fa-phone" aria-hidden="true"></i> </a>
+      </li>
+
+      <li class="nav-item active">
+        <button  onclick='clearCart()' class="btn btn-dark mx-2 nav-link  css1" id ='clearCart'>Clear Cart</button>
+      </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="/open/password_change/">Change Password</a>
+      </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="/open/logout/">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      </li>
+
+    </ul>
+    <form  method="get" action="/shop/search/"class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-1" type="search" placeholder="Search for Products,brands and more" aria-label="Search" name="search" id="search">
+      <button class="vh79eN" type="submit" style="border:none; border-radius:4px;box-size:border-box; background:none;"><svg width="20" height="20" viewBox="0 0 17 18" class="" xmlns="http://www.w3.org/2000/svg"><g fill="#2874F1" fill-rule="evenodd"><path class="_2BhAHa" d="m11.618 9.897l4.225 4.212c.092.092.101.232.02.313l-1.465 1.46c-.081.081-.221.072-.314-.02l-4.216-4.203"></path><path class="_2BhAHa" d="m6.486 10.901c-2.42 0-4.381-1.956-4.381-4.368 0-2.413 1.961-4.369 4.381-4.369 2.42 0 4.381 1.956 4.381 4.369 0 2.413-1.961 4.368-4.381 4.368m0-10.835c-3.582 0-6.486 2.895-6.486 6.467 0 3.572 2.904 6.467 6.486 6.467 3.582 0 6.486-2.895 6.486-6.467 0-3.572-2.904-6.467-6.486-6.467"></path></g>
+      </svg>
+    </button>
+
+      <!-- <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button> -->
+    </form>
+    <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="Vivamus
+     sagittis lacus vel augue laoreet rutrum faucibus.">
+     cart(<span id="cart">0</span>)
+</button>
+  </div>
+</nav>
+{% else %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-right ">
+<a class="navbar-brand" href="/"><i class="fa fa-shopping-basket" aria-hidden="true"></i> My Awesome Cart: Please Login</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<ul class="navbar-nav mr-auto">
+<!-- <li class="nav-item active">
+<a class="nav-link" href="/open/signup/">Signup <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+</li>
+<li class="nav-item active">
+<a class="nav-link" href="/open/login/">Login <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+</li> -->
+
+</ul>
+</nav>
+{% endif %}
+  {% block body%} {% endblock%}
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+{% block js %}
+
+
+ {% endblock %}
+</body>
+</html>

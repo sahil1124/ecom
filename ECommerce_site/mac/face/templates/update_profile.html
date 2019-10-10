@@ -1,0 +1,20 @@
+{% extends 'shop/basic.html'%}
+{% load bootstrap3 %}
+{% block body %}
+<div class="my-3 mx-4">
+<div class="jumbotron p-4 p-md-3 text-white rounded bg-success ">
+
+<form  method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <!-- <legend class="border-bootom mb-4"><h1>Profile Info:</h1></legend> -->
+    {% bootstrap_form u_form %}
+    {% bootstrap_form p_form %}
+  </fieldset>
+  <div class="form-group">
+    <button type="submit" class="btn btn-outline-dark ">Update</button>
+  </div>
+</form>
+  </div>
+</div>
+  {% endblock %}
